@@ -1,18 +1,31 @@
 package com.example.brian.testapplication;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-/**
- * Created by Brian_Hsu on 2018/1/22.
- */
-
 public class MyMathTest {
     //@Mock 代表要讓這物件有 mock 的行為
     @Mock
     private Logger mockLogger = new Logger();
+
+    @Test
+    public void add_first_1_second_2_equals_3(){
+        //arrange
+        int first = 1;
+        int second = 2;
+        int expect = 3;
+        MyMath myMath = new MyMath();
+
+        //act
+        int actual = myMath.add(first, second);
+
+        //assert
+        Assert.assertEquals(expect, actual);
+    }
 
     @Test
     public void sample_log_call_once(){
@@ -23,7 +36,7 @@ public class MyMathTest {
 
         //act
         //在這裡預期logger會被呼叫一次
-        MyMath myMath = new MyMath(mockLogger);
+        MyMathLog myMath = new MyMathLog(mockLogger);
         myMath.add(-1, -2);
 
         //assert
@@ -39,7 +52,7 @@ public class MyMathTest {
 
         int expectCallTimes = 3;
 
-        MyMath myMath = new MyMath(mockLogger);
+        MyMathLog myMath = new MyMathLog(mockLogger);
         myMath.add(-1, 2);
         myMath.add(1, -2);
         myMath.add(3, 100);
